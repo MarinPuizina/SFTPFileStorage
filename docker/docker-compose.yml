@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  sftpclient:
+    image: atmoz/sftp
+    ports:
+    - "22:22"
+    command: ["marin:password123:::upload"]
+    entrypoint: "/entrypoint"
