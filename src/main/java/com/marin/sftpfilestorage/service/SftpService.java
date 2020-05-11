@@ -4,10 +4,7 @@ import org.springframework.integration.sftp.session.DefaultSftpSessionFactory;
 import org.springframework.integration.sftp.session.SftpSession;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 
 @Service
 public class SftpService {
@@ -24,7 +21,7 @@ public class SftpService {
         return sessionFactory;
     }
 
-    public void uploadFile(String fileName) {
+    public void uploadFile(String fileName, InputStream inputStream) {
 
         SftpSession session = getSessionFactory().getSession();
 
