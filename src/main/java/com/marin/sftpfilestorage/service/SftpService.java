@@ -27,8 +27,7 @@ public class SftpService {
 
         FileInputStream fileInputStream = null;
         try {
-            fileInputStream = new FileInputStream(new File("some path")); //TODO make path
-            session.write(fileInputStream, "upload/" + fileName);
+            session.write(inputStream, "upload/" + fileName);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
