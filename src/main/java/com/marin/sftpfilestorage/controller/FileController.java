@@ -18,7 +18,7 @@ public class FileController {
     private final SftpService sftpService;
 
     @PostMapping("/upload")
-    public String uploadFile(@RequestParam(value = "file") MultipartFile file) throws IOException {
+    public String uploadFile(MultipartFile file) throws IOException {
 
         log.info("Started file upload");
         log.info("Original File Name --> " + file.getOriginalFilename());
