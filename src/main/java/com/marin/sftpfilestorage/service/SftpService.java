@@ -1,10 +1,14 @@
 package com.marin.sftpfilestorage.service;
 
+import com.jcraft.jsch.*;
 import org.springframework.integration.sftp.session.DefaultSftpSessionFactory;
 import org.springframework.integration.sftp.session.SftpSession;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 
 @Service
 public class SftpService {
@@ -35,6 +39,34 @@ public class SftpService {
         }
 
         session.close();
+
+    }
+
+    public void downloadFile(String fileName) {
+
+        String absoluteFileName = "upload/" + fileName;
+        String tempFile = "temp/" + fileName;
+
+        JSch jSch = new JSch();
+
+        try {
+
+            Session session = jSch.getSession("marin", "127.0.0.1", 22);
+            session.setPassword("password123");
+            session.setConfig("StrictHostKeyChecking", "no");
+            session.connect();
+
+            ChannelSftp sftp = (ChannelSftp) session.openChannel("sftp");
+            sftp.connect();
+            sftp.lcd("tmp");
+            sftp.get(absoluteFileName, tempFile);
+
+        } catch (JSchException e) {
+            e.printStackTrace();
+        } catch (SftpException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
