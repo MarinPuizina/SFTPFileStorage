@@ -42,10 +42,10 @@ public class SftpService {
 
     }
 
-    public void downloadFile(String fileName) {
+    public String downloadFile(String fileName) {
 
         String absoluteFileName = "upload/" + fileName;
-        String tempFile = "temp/" + fileName;
+        String tmpFile = "tmp/" + fileName;
 
         JSch jSch = new JSch();
 
@@ -59,7 +59,7 @@ public class SftpService {
             ChannelSftp sftp = (ChannelSftp) session.openChannel("sftp");
             sftp.connect();
             sftp.lcd("tmp");
-            sftp.get(absoluteFileName, tempFile);
+            sftp.get(absoluteFileName, fileName);
 
         } catch (JSchException e) {
             e.printStackTrace();
@@ -68,6 +68,7 @@ public class SftpService {
         }
 
 
+        return tmpFile;
     }
 
 }
